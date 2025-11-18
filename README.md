@@ -70,3 +70,98 @@ cd ../..
 cd apps/frontend
 npm install
 cd ../..
+```
+
+### 5. Setup Database
+
+```bash
+cd apps/backend
+
+# Generate Prisma Client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate dev --name init
+
+# Seed database with sample products
+npx prisma db seed
+
+cd ../..
+```
+
+### 6. Run the Application
+
+**Option 1: Run both apps together (from root)**
+```bash
+npm run dev
+```
+
+**Option 2: Run separately**
+
+Terminal 1 (Backend):
+```bash
+cd apps/backend
+npm run dev
+```
+
+Terminal 2 (Frontend):
+```bash
+cd apps/frontend
+npm start
+```
+
+### 7. Access the Application
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+
+## API Endpoints
+
+- `GET /products` - Get all products
+- `GET /products/:id` - Get single product by ID
+
+## Project Structure
+
+```
+fabric-marketplace/
+├── apps/
+│   ├── backend/          # Node.js Express API
+│   │   ├── prisma/       # Database schema and seed
+│   │   └── src/          # Source code
+│   └── frontend/         # React application
+│       ├── src/
+│       │   ├── components/
+│       │   ├── context/
+│       │   ├── pages/
+│       │   └── App.tsx
+├── package.json
+└── turbo.json
+```
+
+## Troubleshooting
+
+### Port already in use
+If port 3000 or 5000 is in use:
+- Backend: Change PORT in `.env`
+- Frontend: Create `.env` in `apps/frontend` with `PORT=3001`
+
+### Database connection error
+- Ensure PostgreSQL is running
+- Check DATABASE_URL in `.env`
+- Verify database exists
+
+### Prisma errors
+```bash
+cd apps/backend
+npx prisma generate
+npx prisma migrate reset
+```
+
+## Future Enhancements
+
+- User authentication
+- Order placement
+- Payment integration
+- Admin panel
+- Product reviews
+- Wishlist functionality
